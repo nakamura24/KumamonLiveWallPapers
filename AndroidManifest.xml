@@ -1,0 +1,62 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="jp.kumamonlivewallpapers"
+    android:versionCode="9"
+    android:versionName="1.0.8" 
+    android:installLocation="auto">
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/KumamonLiveWalls"
+        android:theme="@style/AppTheme" 
+        android:allowBackup="true">
+        <service
+            android:name=".KumamonLiveWall1"
+            android:label="@string/KumamonLiveWall1"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data 
+                android:name="android.service.wallpaper" 
+                android:resource="@xml/wallpaper1" />
+        </service>
+        <service
+            android:name=".KumamonLiveWall2"
+            android:label="@string/KumamonLiveWall2"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data 
+                android:name="android.service.wallpaper" 
+                android:resource="@xml/wallpaper2" />
+        </service>
+        <service
+            android:name=".KumamonLiveWall3"
+            android:label="@string/KumamonLiveWall3"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data 
+                android:name="android.service.wallpaper" 
+                android:resource="@xml/wallpaper3" />
+        </service>
+        <service
+            android:name=".KumamonLockLiveWall"
+            android:label="@string/KumamonLockLiveWall"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data 
+                android:name="android.service.wallpaper" 
+                android:resource="@xml/wallpaper" />
+        </service>
+	</application>
+
+</manifest>
