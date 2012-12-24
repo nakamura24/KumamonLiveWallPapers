@@ -12,7 +12,7 @@ package jp.kumamonlivewallpapers;
 
 import java.util.Random;
 
-import jp.library.LiveWallPaper;
+import jp.template.LiveWallPaper;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;

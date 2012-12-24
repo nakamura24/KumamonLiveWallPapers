@@ -13,7 +13,7 @@ package jp.kumamonlivewallpapers;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import jp.library.LiveWallPaper;
+import jp.template.LiveWallPaper;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;

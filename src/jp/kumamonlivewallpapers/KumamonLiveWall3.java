@@ -10,7 +10,7 @@
 
 package jp.kumamonlivewallpapers;
 
-import jp.library.LiveWallPaper;
+import jp.template.LiveWallPaper;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
