@@ -21,13 +21,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Handler;
-import android.service.wallpaper.WallpaperService;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
+import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 
 public class KumamonLockLiveWall extends WallpaperService {
