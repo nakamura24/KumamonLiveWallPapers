@@ -24,9 +24,10 @@ import android.view.Display;
 import android.view.WindowManager;
 
 public class KumamonLiveWall2 extends LiveWallPaper {
-	private int[] images = {R.drawable.image10,R.drawable.image11,R.drawable.image12,
-			R.drawable.image13,R.drawable.image14,R.drawable.image40,R.drawable.image60,
-			R.drawable.image80,R.drawable.image100,};
+	private static final int[] images = {
+		R.drawable.image10,R.drawable.image11,R.drawable.image12,
+		R.drawable.image13,R.drawable.image14,R.drawable.image40,
+		R.drawable.image60,R.drawable.image80,R.drawable.image100,};
 	private int displayWidth;
 	private Random randam = new Random();
     private int preDoubleTap = 0;

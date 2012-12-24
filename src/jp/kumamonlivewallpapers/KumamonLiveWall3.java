@@ -61,8 +61,8 @@ public class KumamonLiveWall3 extends LiveWallPaper {
 	public void ChangeImage() {
 		int touchSelect = DoubleTap % images.length;
 		Image = BitmapFactory.decodeResource(getResources(), images[touchSelect]);
-		position += Distance;
-		Distance = 0;
+		position += DistanceX;
+		DistanceX = 0;
 		width = Image.getWidth();
 		hight = Image.getHeight();
 	}
