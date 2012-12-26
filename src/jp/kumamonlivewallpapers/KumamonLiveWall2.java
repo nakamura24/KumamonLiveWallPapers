@@ -30,7 +30,7 @@ public class KumamonLiveWall2 extends LiveWallPaper {
 		R.drawable.image60,R.drawable.image80,R.drawable.image100,};
 	private int displayWidth;
 	private Random randam = new Random();
-    private int preDoubleTap = 0;
+	private int preDoubleTap = 0;
 	private int preOffset = 0;
 
 	@Override
@@ -54,16 +54,16 @@ public class KumamonLiveWall2 extends LiveWallPaper {
 	public Engine onCreateEngine() {
 		return new LiveEngine();
 	}
-	
+
+	@Override
 	public void DrawCanvas(Canvas canvas) {
 		// draw something
-		canvas.drawColor(BackgroundColor);
-		ChangeImage();
-		canvas.drawBitmap(Image, 0, 0, null);
+		super.DrawCanvas(canvas);
 		OverLayer(canvas);
 		KumamonCopyright(canvas);
 	}
-	
+
+	@Override
 	public void ChangeImage() {
 		if(preDoubleTap != DoubleTap || preOffset != Offset) {
 			Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
@@ -71,7 +71,7 @@ public class KumamonLiveWall2 extends LiveWallPaper {
 		preDoubleTap = DoubleTap;
 		preOffset = Offset;
 	}
-	
+
 	private void OverLayer(Canvas canvas) {
 		Date date = Calendar.getInstance().getTime();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
@@ -88,7 +88,7 @@ public class KumamonLiveWall2 extends LiveWallPaper {
 		Resources resource = getResources();
 		canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 25, 140, paint);
 	}
-	
+
 	private void KumamonCopyright(Canvas canvas) {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);

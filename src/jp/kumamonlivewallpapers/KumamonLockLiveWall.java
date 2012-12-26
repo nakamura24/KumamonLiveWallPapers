@@ -26,7 +26,7 @@ public class KumamonLockLiveWall extends LiveWallPaper {
 	private int displayWidth;
 	private Random randam = new Random();
 	private boolean warking = false;
-    private int preSingleTap = 0;
+	private int preSingleTap = 0;
 
 	@Override
 	public void onCreate() {
@@ -48,21 +48,21 @@ public class KumamonLockLiveWall extends LiveWallPaper {
 	public Engine onCreateEngine() {
 		return new LiveEngine();
 	}
-	
+
+	@Override
 	public void DrawCanvas(Canvas canvas) {
+		super.DrawCanvas(canvas);
 		// draw something
-		canvas.drawColor(BackgroundColor);
-		ChangeImage();
-		canvas.drawBitmap(Image, 0, 0, null);
 		KumamonCopyright(canvas);
 	}
-	
+
+	@Override
 	public void ChangeImage() {
 		if(preSingleTap != SingleTap) {
 			int[] images = {R.drawable.lock2,R.drawable.lock3,R.drawable.lock4,R.drawable.lock5,};
 			Image = BitmapFactory.decodeResource(getResources(), images[randam.nextInt(images.length)]);
 			preSingleTap = SingleTap;
-			DrawDelayTime = 3000;
+			DrawDelayTime = 3000;	// millisecond
 		} else {
 			if(warking) {
 				Image = BitmapFactory.decodeResource(getResources(), R.drawable.lock0);
@@ -71,15 +71,15 @@ public class KumamonLockLiveWall extends LiveWallPaper {
 				Image = BitmapFactory.decodeResource(getResources(), R.drawable.lock1);
 				warking  = true;
 			}
-			DrawDelayTime = 1000;
+			DrawDelayTime = 1000;	// millisecond
 		}
 	}
-	
+
 	private void KumamonCopyright(Canvas canvas) {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextSize(14);
+		paint.setTextSize(14 * displayWidth / 480);
 		Resources resource = getResources();
 		int x = 280 * displayWidth / 480;
 		int y = 580 * displayWidth / 480;

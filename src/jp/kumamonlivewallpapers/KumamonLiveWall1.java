@@ -44,7 +44,8 @@ public class KumamonLiveWall1 extends LiveWallPaper {
 	public Engine onCreateEngine() {
 		return new LiveEngine();
 	}
-	
+
+	@Override
 	public void DrawCanvas(Canvas canvas) {
 		// draw something
 		if(BatteryLevel <= BatteryScale / 2) {
@@ -53,12 +54,13 @@ public class KumamonLiveWall1 extends LiveWallPaper {
 		} else {
 			// 描画
 			canvas.drawColor(Color.rgb((int)(0xff * (2 - (double)BatteryLevel * 2 / BatteryScale)), 0xff, 0));
-		}									
+		}
 		ChangeImage();
 		canvas.drawBitmap(Image, 0, 0, null);
 		KumamonCopyright(canvas);
 	}
-	
+
+	@Override
 	public void ChangeImage() {
 		if (Offset == 0) {
 			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image0);
@@ -98,7 +100,7 @@ public class KumamonLiveWall1 extends LiveWallPaper {
 						Image = BitmapFactory.decodeResource(getResources(), R.drawable.image80);
 					} else {
 						Image = BitmapFactory.decodeResource(getResources(), R.drawable.image100);
-					}									
+					}
 					break;
 				}
 			}
@@ -108,7 +110,7 @@ public class KumamonLiveWall1 extends LiveWallPaper {
 			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image4);
 		}
 	}
-	
+
 	private void KumamonCopyright(Canvas canvas) {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
