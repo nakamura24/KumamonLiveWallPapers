@@ -62,7 +62,7 @@ public class KumamonLockLiveWall extends LiveWallPaper {
 			int[] images = {R.drawable.lock2,R.drawable.lock3,R.drawable.lock4,R.drawable.lock5,};
 			Image = BitmapFactory.decodeResource(getResources(), images[randam.nextInt(images.length)]);
 			preSingleTap = SingleTap;
-			DrawDelayTime = 3000;	// millisecond
+			DelayMillis = 3000;	// millisecond
 		} else {
 			if(warking) {
 				Image = BitmapFactory.decodeResource(getResources(), R.drawable.lock0);
@@ -71,7 +71,7 @@ public class KumamonLockLiveWall extends LiveWallPaper {
 				Image = BitmapFactory.decodeResource(getResources(), R.drawable.lock1);
 				warking  = true;
 			}
-			DrawDelayTime = 1000;	// millisecond
+			DelayMillis = 1000;	// millisecond
 		}
 	}
 
