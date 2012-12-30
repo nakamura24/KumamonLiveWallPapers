@@ -1,0 +1,13 @@
+﻿package jp.kumamonlivewallpapers.livewallpaper2;
+
+import jp.kumamonlivewallpapers.R;
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
+
+public class LiveWallPaperPreference extends PreferenceActivity {
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(R.xml.preference);
+	}
+}
