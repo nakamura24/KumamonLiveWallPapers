@@ -8,11 +8,12 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers;
+package jp.kumamonlivewallpapers.livewallpaper2;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import jp.kumamonlivewallpapers.R;
 import jp.template.LiveWallPaper;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
@@ -23,7 +24,7 @@ import android.graphics.Typeface;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class KumamonLiveWall2 extends LiveWallPaper {
+public class KumamonLiveWallPaper2 extends LiveWallPaper {
 	private static final int[] images = {
 		R.drawable.image10,R.drawable.image11,R.drawable.image12,
 		R.drawable.image13,R.drawable.image14,R.drawable.image40,
@@ -93,10 +94,10 @@ public class KumamonLiveWall2 extends LiveWallPaper {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextSize(14 * displayWidth / 480);
+		paint.setTextSize(16 * displayWidth / 480);
 		Resources resource = getResources();
-		int x = 260 * displayWidth / 480;
-		int y = 680 * displayWidth / 480;
+		int x = 240 * displayWidth / 480;
+		int y = 640 * displayWidth / 480;
 		canvas.drawText(resource.getString(R.string.KumamonCopyright), x, y, paint);
 	}
 }

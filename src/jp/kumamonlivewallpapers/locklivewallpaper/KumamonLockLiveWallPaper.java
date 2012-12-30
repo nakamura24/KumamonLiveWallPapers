@@ -8,10 +8,11 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers;
+package jp.kumamonlivewallpapers.locklivewallpaper;
 
 import java.util.Random;
 
+import jp.kumamonlivewallpapers.R;
 import jp.template.LiveWallPaper;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
@@ -22,7 +23,7 @@ import android.graphics.Typeface;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class KumamonLockLiveWall extends LiveWallPaper {
+public class KumamonLockLiveWallPaper extends LiveWallPaper {
 	private int displayWidth;
 	private Random randam = new Random();
 	private boolean warking = false;
@@ -79,10 +80,10 @@ public class KumamonLockLiveWall extends LiveWallPaper {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextSize(14 * displayWidth / 480);
+		paint.setTextSize(16 * displayWidth / 480);
 		Resources resource = getResources();
-		int x = 280 * displayWidth / 480;
-		int y = 580 * displayWidth / 480;
+		int x = 240 * displayWidth / 480;
+		int y = 600 * displayWidth / 480;
 		canvas.drawText(resource.getString(R.string.KumamonCopyright), x, y, paint);
 	}
 }

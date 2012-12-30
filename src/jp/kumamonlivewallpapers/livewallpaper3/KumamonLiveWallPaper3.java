@@ -8,8 +8,9 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers;
+package jp.kumamonlivewallpapers.livewallpaper3;
 
+import jp.kumamonlivewallpapers.R;
 import jp.template.LiveWallPaper;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,7 +18,7 @@ import android.graphics.Rect;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class KumamonLiveWall3 extends LiveWallPaper {
+public class KumamonLiveWallPaper3 extends LiveWallPaper {
 	private static final int[] images = {R.drawable.kuma6,R.drawable.kuma5,};
 	private int width;
 	private int hight;
