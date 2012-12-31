@@ -136,6 +136,7 @@ public class ForecastTask extends AsyncTask<Integer, Integer, Long> {
 			editor.putString(KumamonLiveWallPaper2.KEY_TODAY, titles.get(0));
 			editor.putString(KumamonLiveWallPaper2.KEY_TOMORROW, titles.get(1));
 			editor.putString(KumamonLiveWallPaper2.KEY_DAY_AFTER_TOMORROW, titles.get(2));
+			editor.putLong(KumamonLiveWallPaper2.KEY_LASTUPDATE, Calendar.getInstance().getTimeInMillis());
 
 			// Commit the edits!
 			editor.commit();		

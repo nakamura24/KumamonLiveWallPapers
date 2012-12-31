@@ -49,11 +49,13 @@ public final class R {
         public static final int KumamonLockLiveWall=0x7f050005;
         public static final int app_name=0x7f050000;
         public static final int battery=0x7f05000b;
+        public static final int date=0x7f05000c;
         public static final int description=0x7f050009;
         public static final int description1=0x7f050006;
         public static final int description2=0x7f050007;
         public static final int description3=0x7f050008;
-        public static final int locate=0x7f05000c;
+        public static final int forecast=0x7f05000d;
+        public static final int locate=0x7f05000e;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;
