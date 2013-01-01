@@ -1,4 +1,4 @@
-﻿package jp.kumamonlivewallpapers.livewallpaper2;
+﻿package jp.kumamonlivewallpapers;
 
 import jp.kumamonlivewallpapers.R;
 import android.os.Bundle;

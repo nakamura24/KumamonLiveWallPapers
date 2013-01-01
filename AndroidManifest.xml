@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jp.kumamonlivewallpapers"
-    android:versionCode="19"
-    android:versionName="1.1.9" 
+    android:versionCode="20"
+    android:versionName="1.1.10" 
     android:installLocation="auto">
 
     <uses-sdk
@@ -38,7 +38,7 @@
                 android:resource="@xml/wallpaper2" />
         </service>
         <activity 
-            android:name=".livewallpaper2.LiveWallPaperPreference" 
+            android:name=".LiveWallPaperPreference" 
             android:theme="@android:style/Theme.WallpaperSettings" 
             android:exported="true">
         </activity>

@@ -8,7 +8,7 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers.livewallpaper2;
+package jp.kumamonlivewallpapers;
 
 import java.io.InputStream;
 import java.util.*;
@@ -35,6 +35,10 @@ public class ForecastTask extends AsyncTask<Integer, Integer, Long> {
 	private Date pubDate = null;
 	private int id = 63;
 	private Context context;
+	public static final String KEY_LASTUPDATE	= "LastUpdate";
+	public static final String KEY_TODAY	= "today";
+	public static final String KEY_TOMORROW	= "tomorrow";
+	public static final String KEY_DAY_AFTER_TOMORROW	= "day_after_tomorrow";
 	
 	public ForecastTask(Context context){
 		this.context = context;
@@ -131,12 +135,12 @@ public class ForecastTask extends AsyncTask<Integer, Integer, Long> {
 	protected void onPostExecute(Long result) {
 		try {
 			Log.i(TAG, "onPostExecute");
-	        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 			SharedPreferences.Editor editor = sharedPreferences.edit();
-			editor.putString(KumamonLiveWallPaper2.KEY_TODAY, titles.get(0));
-			editor.putString(KumamonLiveWallPaper2.KEY_TOMORROW, titles.get(1));
-			editor.putString(KumamonLiveWallPaper2.KEY_DAY_AFTER_TOMORROW, titles.get(2));
-			editor.putLong(KumamonLiveWallPaper2.KEY_LASTUPDATE, Calendar.getInstance().getTimeInMillis());
+			editor.putString(KEY_TODAY, titles.get(0));
+			editor.putString(KEY_TOMORROW, titles.get(1));
+			editor.putString(KEY_DAY_AFTER_TOMORROW, titles.get(2));
+			editor.putLong(KEY_LASTUPDATE, Calendar.getInstance().getTimeInMillis());
 
 			// Commit the edits!
 			editor.commit();		

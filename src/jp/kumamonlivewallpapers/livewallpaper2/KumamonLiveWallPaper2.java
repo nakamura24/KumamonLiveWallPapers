@@ -13,6 +13,7 @@ package jp.kumamonlivewallpapers.livewallpaper2;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import jp.kumamonlivewallpapers.ForecastTask;
 import jp.kumamonlivewallpapers.R;
 import jp.template.LiveWallPaper;
 import android.content.SharedPreferences;
@@ -35,19 +36,15 @@ public class KumamonLiveWallPaper2 extends LiveWallPaper {
 	private Random randam = new Random();
 	private int preDoubleTap = 0;
 	private int preOffset = 0;
-	public static final String KEY_LASTUPDATE	= "LastUpdate";
-	public static final String KEY_TODAY	= "today";
-	public static final String KEY_TOMORROW	= "tomorrow";
-	public static final String KEY_DAY_AFTER_TOMORROW	= "day_after_tomorrow";
 	private int mLocateId = 0;
 
 	// 設定が変更された時に呼び出されるListener
 	private final SharedPreferences.OnSharedPreferenceChangeListener mListerner = 
 			new SharedPreferences.OnSharedPreferenceChangeListener()
 	{
-	    @Override
-	    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-	    }
+		@Override
+		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		}
 	};
 
 	@Override
@@ -61,10 +58,10 @@ public class KumamonLiveWallPaper2 extends LiveWallPaper {
 		Images = images;
 		BackgroundColor = Color.WHITE;
 		Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
-		
+
 		// 設定が変更された時に呼び出されるListenerを登録
-        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        setting.registerOnSharedPreferenceChangeListener(mListerner);
+		SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		setting.registerOnSharedPreferenceChangeListener(mListerner);
 	}
 
 	@Override
@@ -100,29 +97,29 @@ public class KumamonLiveWallPaper2 extends LiveWallPaper {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-        if(sharedPreferences.getBoolean("date", false)) {
-    		paint.setTextSize(18);
-    		Date date = Calendar.getInstance().getTime();
-    		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
-    		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.JAPANESE);
-    		canvas.drawText(sdf1.format(date), 320, 70, paint);
-    		paint.setTextSize(50);
-    		canvas.drawText(sdf2.format(date), 320, 115, paint);
-    		int battery = (int)((double)BatteryLevel / BatteryScale * 100.0 + 0.5);
-    		paint.setTextSize(18);
-    		Resources resource = getResources();
-    		canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 320, 140, paint);
-        }
+		if(sharedPreferences.getBoolean("date", false)) {
+			paint.setTextSize(18);
+			Date date = Calendar.getInstance().getTime();
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
+			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.JAPANESE);
+			canvas.drawText(sdf1.format(date), 340, 70, paint);
+			paint.setTextSize(50);
+			canvas.drawText(sdf2.format(date), 340, 115, paint);
+			int battery = (int)((double)BatteryLevel / BatteryScale * 100.0 + 0.5);
+			paint.setTextSize(18);
+			Resources resource = getResources();
+			canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 340, 140, paint);
+		}
 
-        if(sharedPreferences.getBoolean("forecast", false)) {
-            String today = sharedPreferences.getString(KEY_TODAY, "");
-            String tomorrow = sharedPreferences.getString(KEY_TOMORROW, "");
-            String day_after_tomorrow = sharedPreferences.getString(KEY_DAY_AFTER_TOMORROW, "");
-    		paint.setTextSize(24);
-    		canvas.drawText(today, 10, 70, paint);
-    		canvas.drawText(tomorrow, 10, 100, paint);
-    		canvas.drawText(day_after_tomorrow, 10, 130, paint);
-        }
+		if(sharedPreferences.getBoolean("forecast", false)) {
+			String today = sharedPreferences.getString(ForecastTask.KEY_TODAY, "");
+			String tomorrow = sharedPreferences.getString(ForecastTask.KEY_TOMORROW, "");
+			String day_after_tomorrow = sharedPreferences.getString(ForecastTask.KEY_DAY_AFTER_TOMORROW, "");
+			paint.setTextSize(24);
+			canvas.drawText(today, 10, 70, paint);
+			canvas.drawText(tomorrow, 10, 100, paint);
+			canvas.drawText(day_after_tomorrow, 10, 130, paint);
+		}
 	}
 
 	private void KumamonCopyright(Canvas canvas) {
@@ -135,15 +132,15 @@ public class KumamonLiveWallPaper2 extends LiveWallPaper {
 		int y = 640 * displayWidth / 480;
 		canvas.drawText(resource.getString(R.string.KumamonCopyright), x, y, paint);
 	}
-	
+
 	private void getForecast() {
 		try {
-	        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-	        if(sharedPreferences.getBoolean("forecast", false)) {
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+			if(sharedPreferences.getBoolean("forecast", false)) {
 				Calendar nowDate = Calendar.getInstance();
-		        Calendar lastUpdate = Calendar.getInstance();
-		        lastUpdate.setTimeInMillis(sharedPreferences.getLong(KEY_LASTUPDATE, nowDate.getTimeInMillis()));
-		    	int locateId = Integer.parseInt(sharedPreferences.getString("locate", "63"));
+				Calendar lastUpdate = Calendar.getInstance();
+				lastUpdate.setTimeInMillis(sharedPreferences.getLong(ForecastTask.KEY_LASTUPDATE, nowDate.getTimeInMillis()));
+				int locateId = Integer.parseInt(sharedPreferences.getString("locate", "63"));
 				if(mLocateId == locateId) {
 					if(lastUpdate.get(Calendar.DAY_OF_YEAR) == nowDate.get(Calendar.DAY_OF_YEAR) &&
 							lastUpdate.get(Calendar.HOUR_OF_DAY) >= 6 && nowDate.get(Calendar.HOUR_OF_DAY) < 12) return;
@@ -157,7 +154,7 @@ public class KumamonLiveWallPaper2 extends LiveWallPaper {
 				mLocateId = locateId;
 				ForecastTask task = new ForecastTask(this);
 				task.execute(locateId);
-	        }
+			}
 		} catch (Exception e) {
 			//ExceptionLog.Log(TAG, e);
 		}

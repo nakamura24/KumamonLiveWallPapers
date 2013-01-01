@@ -10,21 +10,37 @@
 
 package jp.kumamonlivewallpapers.livewallpaper1;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
+import jp.kumamonlivewallpapers.ForecastTask;
 import jp.kumamonlivewallpapers.R;
 import jp.template.LiveWallPaper;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.WindowManager;
 
 public class KumamonLiveWallPaper1 extends LiveWallPaper {
 	private int displayWidth;
+	private int mLocateId = 0;
+
+	// 設定が変更された時に呼び出されるListener
+	private final SharedPreferences.OnSharedPreferenceChangeListener mListerner = 
+			new SharedPreferences.OnSharedPreferenceChangeListener()
+	{
+		@Override
+		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		}
+	};
 
 	@Override
 	public void onCreate() {
@@ -34,6 +50,10 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 		// ディスプレイのインスタンス生成
 		Display display = windowManager.getDefaultDisplay();
 		displayWidth = display.getWidth();
+
+		// 設定が変更された時に呼び出されるListenerを登録
+		SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		setting.registerOnSharedPreferenceChangeListener(mListerner);
 	}
 
 	@Override
@@ -57,7 +77,10 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 			canvas.drawColor(Color.rgb((int)(0xff * (2 - (double)BatteryLevel * 2 / BatteryScale)), 0xff, 0));
 		}
 		ChangeImage();
-		canvas.drawBitmap(Image, 0, 0, null);
+		if(Image != null) {
+			canvas.drawBitmap(Image, 0, 0, null);
+		}
+		OverLayer(canvas);
 		KumamonCopyright(canvas);
 	}
 
@@ -110,6 +133,37 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 		} else if (Offset == 4) {
 			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image4);
 		}
+		getForecast();
+	}
+
+	private void OverLayer(Canvas canvas) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		Paint paint = new Paint();
+		paint.setColor(Color.BLACK);
+		paint.setTypeface(Typeface.DEFAULT_BOLD);
+		if(sharedPreferences.getBoolean("date", false)) {
+			paint.setTextSize(18);
+			Date date = Calendar.getInstance().getTime();
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
+			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.JAPANESE);
+			canvas.drawText(sdf1.format(date), 340, 70, paint);
+			paint.setTextSize(50);
+			canvas.drawText(sdf2.format(date), 340, 115, paint);
+			int battery = (int)((double)BatteryLevel / BatteryScale * 100.0 + 0.5);
+			paint.setTextSize(18);
+			Resources resource = getResources();
+			canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 340, 140, paint);
+		}
+
+		if(sharedPreferences.getBoolean("forecast", false)) {
+			String today = sharedPreferences.getString(ForecastTask.KEY_TODAY, "");
+			String tomorrow = sharedPreferences.getString(ForecastTask.KEY_TOMORROW, "");
+			String day_after_tomorrow = sharedPreferences.getString(ForecastTask.KEY_DAY_AFTER_TOMORROW, "");
+			paint.setTextSize(24);
+			canvas.drawText(today, 10, 70, paint);
+			canvas.drawText(tomorrow, 10, 100, paint);
+			canvas.drawText(day_after_tomorrow, 10, 130, paint);
+		}
 	}
 
 	private void KumamonCopyright(Canvas canvas) {
@@ -121,5 +175,32 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 		int x = 240 * displayWidth / 480;
 		int y = 640 * displayWidth / 480;
 		canvas.drawText(resource.getString(R.string.KumamonCopyright), x, y, paint);
+	}
+
+	private void getForecast() {
+		try {
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+			if(sharedPreferences.getBoolean("forecast", false)) {
+				Calendar nowDate = Calendar.getInstance();
+				Calendar lastUpdate = Calendar.getInstance();
+				lastUpdate.setTimeInMillis(sharedPreferences.getLong(ForecastTask.KEY_LASTUPDATE, nowDate.getTimeInMillis()));
+				int locateId = Integer.parseInt(sharedPreferences.getString("locate", "63"));
+				if(mLocateId == locateId) {
+					if(lastUpdate.get(Calendar.DAY_OF_YEAR) == nowDate.get(Calendar.DAY_OF_YEAR) &&
+							lastUpdate.get(Calendar.HOUR_OF_DAY) >= 6 && nowDate.get(Calendar.HOUR_OF_DAY) < 12) return;
+					if(lastUpdate.get(Calendar.DAY_OF_YEAR) == nowDate.get(Calendar.DAY_OF_YEAR) &&
+							lastUpdate.get(Calendar.HOUR_OF_DAY) >= 12 && nowDate.get(Calendar.HOUR_OF_DAY) < 18) return;
+					if(lastUpdate.get(Calendar.DAY_OF_YEAR) == nowDate.get(Calendar.DAY_OF_YEAR) &&
+							lastUpdate.get(Calendar.HOUR_OF_DAY) >= 18) return;
+					if(lastUpdate.get(Calendar.DAY_OF_YEAR) == nowDate.get(Calendar.DAY_OF_YEAR) &&
+							lastUpdate.get(Calendar.HOUR_OF_DAY) < 6 && nowDate.get(Calendar.HOUR_OF_DAY) < 6) return;
+				}
+				mLocateId = locateId;
+				ForecastTask task = new ForecastTask(this);
+				task.execute(locateId);
+			}
+		} catch (Exception e) {
+			//ExceptionLog.Log(TAG, e);
+		}
 	}
 }

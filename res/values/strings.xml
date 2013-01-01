@@ -12,7 +12,7 @@
     <string name="description">くまモンが歩いています。歩いているくまモンをタップすると画像が変化します</string>
     <string name="KumamonCopyright">©2010 熊本県 くまモン</string>
     <string name="battery">電池残量:</string>
-    <string name="date">日付、時刻、電池残量を表示</string>
+    <string name="date">日時、電池残量を表示</string>
     <string name="forecast">天気予報を表示</string>
     <string name="locate">天気予報の地域</string>
     

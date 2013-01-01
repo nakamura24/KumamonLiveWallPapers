@@ -3,5 +3,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:thumbnail="@drawable/ic_launcher"
     android:description="@string/description2"
-    android:settingsActivity="jp.kumamonlivewallpapers.livewallpaper2.LiveWallPaperPreference"
+    android:settingsActivity="jp.kumamonlivewallpapers.LiveWallPaperPreference"
 />
