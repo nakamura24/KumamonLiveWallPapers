@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jp.kumamonlivewallpapers"
-    android:versionCode="21"
-    android:versionName="1.1.11" 
+    android:versionCode="22"
+    android:versionName="1.1.12" 
     android:installLocation="auto">
 
     <uses-sdk
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" 
         android:allowBackup="true">
         <service
-            android:name=".livewallpaper1.KumamonLiveWallPaper1"
+            android:name=".KumamonLiveWallPaper1"
             android:label="@string/KumamonLiveWall1"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
@@ -27,7 +27,7 @@
         </service>
         
         <service
-            android:name=".livewallpaper2.KumamonLiveWallPaper2"
+            android:name=".KumamonLiveWallPaper2"
             android:label="@string/KumamonLiveWall2"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
@@ -37,14 +37,8 @@
                 android:name="android.service.wallpaper" 
                 android:resource="@xml/wallpaper2" />
         </service>
-        <activity 
-            android:name=".LiveWallPaperPreference" 
-            android:theme="@android:style/Theme.WallpaperSettings" 
-            android:exported="true">
-        </activity>
-        
         <service
-            android:name=".livewallpaper3.KumamonLiveWallPaper3"
+            android:name=".KumamonLiveWallPaper3"
             android:label="@string/KumamonLiveWall3"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
@@ -56,7 +50,7 @@
         </service>
         
         <service
-            android:name=".locklivewallpaper.KumamonLockLiveWallPaper"
+            android:name=".KumamonLockLiveWallPaper"
             android:label="@string/KumamonLockLiveWall"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
@@ -66,5 +60,11 @@
                 android:name="android.service.wallpaper" 
                 android:resource="@xml/wallpaper" />
         </service>
+
+        <activity 
+            android:name=".LiveWallPaperPreference" 
+            android:theme="@android:style/Theme.WallpaperSettings" 
+            android:exported="true">
+        </activity>
 	</application>
 </manifest>

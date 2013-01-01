@@ -8,7 +8,7 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers.livewallpaper3;
+package jp.kumamonlivewallpapers;
 
 import jp.kumamonlivewallpapers.R;
 import jp.template.LiveWallPaper;

@@ -8,7 +8,7 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers.livewallpaper1;
+package jp.kumamonlivewallpapers;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
