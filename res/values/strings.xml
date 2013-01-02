@@ -1,19 +1,27 @@
 ﻿<resources>
 
-    <string name="app_name">くまモンライブ壁紙</string>
+    <string name="app_name">くまモンライブ壁紙集</string>
     <string name="KumamonLiveWalls">くまモンライブ壁紙集</string>
-    <string name="KumamonLiveWall1">くまモンライブ壁紙1</string>
-    <string name="KumamonLiveWall2">くまモンライブ壁紙2</string>
-    <string name="KumamonLiveWall3">くまモンライブ壁紙3</string>
     <string name="KumamonLockLiveWall">くまモンロック画面ライブ壁紙</string>
-    <string name="description1">フリックやタップでポーズが変化をします。電池残量でくまモンの元気がなくなり、背景が緑～黄～赤と変化します</string>
-    <string name="description2">フリックやタップでランダムにポーズが変化をします</string>
-    <string name="description3">肥後六花とくまモン、TSUBOくまモンです。ダブルタップで画像が替わります</string>
-    <string name="description">くまモンが歩いています。歩いているくまモンをタップすると画像が変化します</string>
+    <string name="description">4パターンのくまモンライブ壁紙が選択できます</string>
+    <string name="lockdescription">くまモンが歩いています。歩いているくまモンをタップすると画像が変化します</string>
     <string name="KumamonCopyright">©2010 熊本県 くまモン</string>
     <string name="battery">電池残量:</string>
     <string name="date">日時、電池残量を表示</string>
     <string name="forecast">天気予報を表示</string>
     <string name="locate">天気予報の地域</string>
+    <string name="selecttitle">ライブ壁紙の選択</string>
+    <string-array name="selects">
+        <item >電池残量でくまモンの元気がなくなり、背景が緑～黄～赤と変化します</item>
+        <item >フリックやタップでランダムにポーズが変化をします</item>
+        <item >肥後六花とくまモンです</item>
+		<item >TSUBOくまモンです</item>
+    </string-array>
+     <string-array name="selectvalues">
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4</item>
+	</string-array>
     
 </resources>

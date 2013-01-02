@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 import jp.kumamonlivewallpapers.ForecastTask;
 import jp.kumamonlivewallpapers.R;
@@ -24,23 +25,25 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class KumamonLiveWallPaper1 extends LiveWallPaper {
+public class KumamonLiveWallPapers extends LiveWallPaper {
+	private static final int[] images = {
+		R.drawable.image10,R.drawable.image11,R.drawable.image12,
+		R.drawable.image13,R.drawable.image14,R.drawable.image40,
+		R.drawable.image60,R.drawable.image80,R.drawable.image100,};
 	private int displayWidth;
 	private int mLocateId = 0;
-
-	// 設定が変更された時に呼び出されるListener
-	private final SharedPreferences.OnSharedPreferenceChangeListener mListerner = 
-			new SharedPreferences.OnSharedPreferenceChangeListener()
-	{
-		@Override
-		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		}
-	};
+	private Random randam = new Random();
+	private int preDoubleTap = 0;
+	private int preOffset = 0;
+	private int width;
+	private int hight;
+	private int position;
 
 	@Override
 	public void onCreate() {
@@ -50,10 +53,7 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 		// ディスプレイのインスタンス生成
 		Display display = windowManager.getDefaultDisplay();
 		displayWidth = display.getWidth();
-
-		// 設定が変更された時に呼び出されるListenerを登録
-		SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		setting.registerOnSharedPreferenceChangeListener(mListerner);
+		Image = BitmapFactory.decodeResource(getResources(), R.drawable.image60);
 	}
 
 	@Override
@@ -68,6 +68,45 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 
 	@Override
 	public void DrawCanvas(Canvas canvas) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		int select = Integer.parseInt(sharedPreferences.getString("select", "0"));
+		switch(select) {
+		case 1:
+			DrawCanvas1(canvas);
+			break;
+		case 2:
+			DrawCanvas2(canvas);
+			break;
+		case 3:
+			DrawCanvas3(canvas);
+			break;
+		case 4:
+			DrawCanvas3(canvas);
+			break;
+		}
+	}
+
+	@Override
+	public void ChangeImage() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		int select = Integer.parseInt(sharedPreferences.getString("select", "0"));
+		switch(select) {
+		case 1:
+			ChangeImage1();
+			break;
+		case 2:
+			ChangeImage2();
+			break;
+		case 3:
+			ChangeImage3();
+			break;
+		case 4:
+			ChangeImage4();
+			break;
+		}
+	}
+	
+	public void DrawCanvas1(Canvas canvas) {
 		// draw something
 		if(BatteryLevel <= BatteryScale / 2) {
 			// 描画
@@ -83,9 +122,8 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 		OverLayer(canvas);
 		KumamonCopyright(canvas);
 	}
-
-	@Override
-	public void ChangeImage() {
+	
+	public void ChangeImage1() {
 		if (Offset == 0) {
 			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image0);
 		} else if (Offset == 1) {
@@ -134,6 +172,50 @@ public class KumamonLiveWallPaper1 extends LiveWallPaper {
 			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image4);
 		}
 		getForecast();
+	}
+	
+	public void DrawCanvas2(Canvas canvas) {
+		// draw something
+		BackgroundColor = Color.WHITE;
+		super.DrawCanvas(canvas);
+		OverLayer(canvas);
+		KumamonCopyright(canvas);
+	}
+
+	public void ChangeImage2() {
+		Images = images;
+		if(preDoubleTap != DoubleTap || preOffset != Offset) {
+			Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
+		}
+		preDoubleTap = DoubleTap;
+		preOffset = Offset;
+		getForecast();
+	}
+	
+	public void DrawCanvas3(Canvas canvas) {
+		// draw something
+		canvas.drawColor(BackgroundColor);
+		ChangeImage();
+		if(position < 0) position = 0;
+		if(position > (width - displayWidth)) position = (width - displayWidth);
+		canvas.drawBitmap(Image, new Rect(position, 0, position + displayWidth, hight),
+				new Rect(0, 0, displayWidth, hight), null);
+	}
+
+	public void ChangeImage3() {
+		Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma6);
+		position += DistanceX;
+		DistanceX = 0;
+		width = Image.getWidth();
+		hight = Image.getHeight();
+	}
+
+	public void ChangeImage4() {
+		Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma5);
+		position += DistanceX;
+		DistanceX = 0;
+		width = Image.getWidth();
+		hight = Image.getHeight();
 	}
 
 	private void OverLayer(Canvas canvas) {

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference 
+        android:key="select" 
+        android:entries="@array/selects" 
+        android:entryValues="@array/selectvalues" 
+        android:title="@string/selecttitle"/>
     <CheckBoxPreference 
         android:key="date" 
         android:title="@string/date"/>

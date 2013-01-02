@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jp.kumamonlivewallpapers"
-    android:versionCode="22"
-    android:versionName="1.1.12" 
+    android:versionCode="23"
+    android:versionName="1.1.13" 
     android:installLocation="auto">
 
     <uses-sdk
@@ -11,43 +11,25 @@
     
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/KumamonLiveWalls"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme" 
         android:allowBackup="true">
         <service
-            android:name=".KumamonLiveWallPaper1"
-            android:label="@string/KumamonLiveWall1"
+            android:name=".KumamonLiveWallPapers"
+            android:label="@string/KumamonLiveWalls"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
             </intent-filter>
             <meta-data 
                 android:name="android.service.wallpaper" 
-                android:resource="@xml/wallpaper1" />
+                android:resource="@xml/wallpaper" />
         </service>
-        
-        <service
-            android:name=".KumamonLiveWallPaper2"
-            android:label="@string/KumamonLiveWall2"
-            android:permission="android.permission.BIND_WALLPAPER">
-            <intent-filter>
-                <action android:name="android.service.wallpaper.WallpaperService" />
-            </intent-filter>
-            <meta-data 
-                android:name="android.service.wallpaper" 
-                android:resource="@xml/wallpaper2" />
-        </service>
-        <service
-            android:name=".KumamonLiveWallPaper3"
-            android:label="@string/KumamonLiveWall3"
-            android:permission="android.permission.BIND_WALLPAPER">
-            <intent-filter>
-                <action android:name="android.service.wallpaper.WallpaperService" />
-            </intent-filter>
-            <meta-data 
-                android:name="android.service.wallpaper" 
-                android:resource="@xml/wallpaper3" />
-        </service>
+        <activity 
+            android:name=".LiveWallPaperPreference" 
+            android:theme="@android:style/Theme.WallpaperSettings" 
+            android:exported="true">
+        </activity>
         
         <service
             android:name=".KumamonLockLiveWallPaper"
@@ -58,13 +40,7 @@
             </intent-filter>
             <meta-data 
                 android:name="android.service.wallpaper" 
-                android:resource="@xml/wallpaper" />
+                android:resource="@xml/lockwallpaper" />
         </service>
-
-        <activity 
-            android:name=".LiveWallPaperPreference" 
-            android:theme="@android:style/Theme.WallpaperSettings" 
-            android:exported="true">
-        </activity>
 	</application>
 </manifest>
