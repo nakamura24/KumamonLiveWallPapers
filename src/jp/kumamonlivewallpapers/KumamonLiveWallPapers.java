@@ -36,6 +36,8 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		R.drawable.image10,R.drawable.image11,R.drawable.image12,
 		R.drawable.image13,R.drawable.image14,R.drawable.image40,
 		R.drawable.image60,R.drawable.image80,R.drawable.image100,};
+	private static final int[] sma = {
+		R.drawable.sma_0, R.drawable.sma_1, R.drawable.sma_2, R.drawable.sma_3, R.drawable.sma_4,};
 	private int displayWidth;
 	private int mLocateId = 0;
 	private Random randam = new Random();
@@ -83,6 +85,9 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		case 4:
 			DrawCanvas3(canvas);
 			break;
+		case 5:
+			super.DrawCanvas(canvas);
+			break;
 		}
 	}
 
@@ -103,6 +108,9 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		case 4:
 			ChangeImage4();
 			break;
+		case 5:
+			Images = sma;
+			super.ChangeImage();
 		}
 	}
 	

@@ -1,4 +1,14 @@
-﻿package jp.kumamonlivewallpapers;
+﻿/*
+ * Copyright (C) 2012 M.Nakamura
+ *
+ * This software is licensed under a Creative Commons
+ * Attribution-NonCommercial-ShareAlike 2.1 Japan License.
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
+ */
+
+package jp.kumamonlivewallpapers;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,9 +24,9 @@ public class LiveWallPaperPreference extends PreferenceActivity
 		addPreferencesFromResource(R.xml.preference);
 		
 		// 設定が変更された時に呼び出されるListenerを登録
-		SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		setting.registerOnSharedPreferenceChangeListener(this);
-		onSharedPreferenceChanged(setting, null);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+		onSharedPreferenceChanged(sharedPreferences, null);
 	}
 	
 	@Override
