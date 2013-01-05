@@ -16,7 +16,7 @@
         <item >フリックやタップでランダムにポーズが変化をします</item>
         <item >肥後六花とくまモンです</item>
 		<item >TSUBOくまモンです</item>
-		<item >フリックでくまモンの画像が切り替わります</item>
+		<item >フリックやタップでくまモンの画像が切り替わります</item>
 	</string-array>
     <string-array name="selectvalues">
         <item >1</item>

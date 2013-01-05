@@ -29,6 +29,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 
 public class KumamonLiveWallPapers extends LiveWallPaper {
@@ -37,12 +38,11 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		R.drawable.image13,R.drawable.image14,R.drawable.image40,
 		R.drawable.image60,R.drawable.image80,R.drawable.image100,};
 	private static final int[] sma = {
-		R.drawable.sma_0, R.drawable.sma_1, R.drawable.sma_2, R.drawable.sma_3, R.drawable.sma_4,};
+		R.drawable.sma_0, R.drawable.sma_1, R.drawable.sma_2, R.drawable.sma_3, R.drawable.sma_4,
+		R.drawable.sma_5, R.drawable.sma_6, R.drawable.sma_7, R.drawable.sma_8, R.drawable.sma_9,};
 	private int displayWidth;
 	private int mLocateId = 0;
 	private Random randam = new Random();
-	private int preDoubleTap = 0;
-	private int preOffset = 0;
 	private int width;
 	private int hight;
 	private int position;
@@ -112,6 +112,27 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 			Images = sma;
 			super.ChangeImage();
 		}
+	}
+	
+	@Override
+	public boolean Scroll(MotionEvent event1, MotionEvent event2, float distanceX, float distanceY) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		int select = Integer.parseInt(sharedPreferences.getString("select", "0"));
+		switch(select) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			position += distanceX;
+			return true;
+		case 4:
+			position += distanceX;
+			return true;
+		case 5:
+			break;
+		}
+		return false;
 	}
 	
 	public void DrawCanvas1(Canvas canvas) {
@@ -192,11 +213,7 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 
 	public void ChangeImage2() {
 		Images = images;
-		if(preDoubleTap != DoubleTap || preOffset != Offset) {
-			Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
-		}
-		preDoubleTap = DoubleTap;
-		preOffset = Offset;
+		Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
 		getForecast();
 	}
 	
@@ -212,16 +229,12 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 
 	public void ChangeImage3() {
 		Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma6);
-		position += DistanceX;
-		DistanceX = 0;
 		width = Image.getWidth();
 		hight = Image.getHeight();
 	}
 
 	public void ChangeImage4() {
 		Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma5);
-		position += DistanceX;
-		DistanceX = 0;
 		width = Image.getWidth();
 		hight = Image.getHeight();
 	}

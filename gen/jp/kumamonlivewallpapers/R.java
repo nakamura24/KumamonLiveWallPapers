@@ -46,6 +46,11 @@ public final class R {
         public static final int sma_2=0x7f02001a;
         public static final int sma_3=0x7f02001b;
         public static final int sma_4=0x7f02001c;
+        public static final int sma_5=0x7f02001d;
+        public static final int sma_6=0x7f02001e;
+        public static final int sma_7=0x7f02001f;
+        public static final int sma_8=0x7f020020;
+        public static final int sma_9=0x7f020021;
     }
     public static final class string {
         public static final int KumamonCopyright=0x7f050005;

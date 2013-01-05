@@ -28,13 +28,14 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 
 public class KumamonLockLiveWallPaper extends LiveWallPaper {
 	private int displayWidth;
 	private Random randam = new Random();
 	private boolean warking = false;
-	private int preSingleTap = 0;
+	private boolean SingleTap = false;
 	private int mLocateId = 0;
 
 	@Override
@@ -68,11 +69,11 @@ public class KumamonLockLiveWallPaper extends LiveWallPaper {
 
 	@Override
 	public void ChangeImage() {
-		if(preSingleTap != SingleTap) {
+		if(SingleTap) {
 			int[] images = {R.drawable.lock2,R.drawable.lock3,R.drawable.lock4,R.drawable.lock5,};
 			Image = BitmapFactory.decodeResource(getResources(), images[randam.nextInt(images.length)]);
-			preSingleTap = SingleTap;
 			DelayMillis = 3000;	// millisecond
+			SingleTap = false;
 		} else {
 			if(warking) {
 				Image = BitmapFactory.decodeResource(getResources(), R.drawable.lock0);
@@ -84,6 +85,12 @@ public class KumamonLockLiveWallPaper extends LiveWallPaper {
 			DelayMillis = 1000;	// millisecond
 		}
 		getForecast();
+	}
+	
+	@Override
+	public boolean SingleTapConfirmed(MotionEvent event) {
+		SingleTap = true;
+		return true;
 	}
 
 	private void OverLayer(Canvas canvas) {
