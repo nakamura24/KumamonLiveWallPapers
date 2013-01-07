@@ -28,9 +28,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.view.Display;
 import android.view.MotionEvent;
-import android.view.WindowManager;
 
 public class KumamonLiveWallPapers extends LiveWallPaper {
 	private static final int[] images = {
@@ -40,7 +38,6 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 	private static final int[] sma = {
 		R.drawable.sma_0, R.drawable.sma_1, R.drawable.sma_2, R.drawable.sma_3, R.drawable.sma_4,
 		R.drawable.sma_5, R.drawable.sma_6, R.drawable.sma_7, R.drawable.sma_8, R.drawable.sma_9,};
-	private int displayWidth;
 	private int mLocateId = 0;
 	private Random randam = new Random();
 	private int width;
@@ -50,11 +47,6 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// ウィンドウマネージャのインスタンス取得
-		WindowManager windowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
-		// ディスプレイのインスタンス生成
-		Display display = windowManager.getDefaultDisplay();
-		displayWidth = display.getWidth();
 		Image = BitmapFactory.decodeResource(getResources(), R.drawable.image60);
 	}
 
@@ -69,6 +61,36 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 	}
 
 	@Override
+	public void ChangeImage() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		int select = Integer.parseInt(sharedPreferences.getString("select", "0"));
+		switch(select) {
+		case 1:
+			ChangeImage1();
+			getForecast();
+			break;
+		case 2:
+			Images = images;
+			Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
+			getForecast();
+			break;
+		case 3:
+			Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma6);
+			width = Image.getWidth();
+			hight = Image.getHeight();
+			break;
+		case 4:
+			Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma5);
+			width = Image.getWidth();
+			hight = Image.getHeight();
+			break;
+		case 5:
+			Images = sma;
+			super.ChangeImage();
+		}
+	}
+
+	@Override
 	public void DrawCanvas(Canvas canvas) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		int select = Integer.parseInt(sharedPreferences.getString("select", "0"));
@@ -77,40 +99,21 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 			DrawCanvas1(canvas);
 			break;
 		case 2:
+			BackgroundColor = Color.WHITE;
+			super.DrawCanvas(canvas);
+			OverLayer(canvas);
+			KumamonCopyright(canvas);
+			break;
+		case 3:
 			DrawCanvas2(canvas);
 			break;
-		case 3:
-			DrawCanvas3(canvas);
-			break;
 		case 4:
-			DrawCanvas3(canvas);
+			DrawCanvas2(canvas);
 			break;
 		case 5:
+			BackgroundColor = Color.BLACK;
 			super.DrawCanvas(canvas);
 			break;
-		}
-	}
-
-	@Override
-	public void ChangeImage() {
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		int select = Integer.parseInt(sharedPreferences.getString("select", "0"));
-		switch(select) {
-		case 1:
-			ChangeImage1();
-			break;
-		case 2:
-			ChangeImage2();
-			break;
-		case 3:
-			ChangeImage3();
-			break;
-		case 4:
-			ChangeImage4();
-			break;
-		case 5:
-			Images = sma;
-			super.ChangeImage();
 		}
 	}
 	
@@ -133,23 +136,6 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 			break;
 		}
 		return false;
-	}
-	
-	public void DrawCanvas1(Canvas canvas) {
-		// draw something
-		if(BatteryLevel <= BatteryScale / 2) {
-			// 描画
-			canvas.drawColor(Color.rgb(0xff, (int)(0xff * (double)BatteryLevel * 2 / BatteryScale), 0));
-		} else {
-			// 描画
-			canvas.drawColor(Color.rgb((int)(0xff * (2 - (double)BatteryLevel * 2 / BatteryScale)), 0xff, 0));
-		}
-		ChangeImage();
-		if(Image != null) {
-			canvas.drawBitmap(Image, 0, 0, null);
-		}
-		OverLayer(canvas);
-		KumamonCopyright(canvas);
 	}
 	
 	public void ChangeImage1() {
@@ -200,43 +186,28 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		} else if (Offset == 4) {
 			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image4);
 		}
-		getForecast();
 	}
 	
-	public void DrawCanvas2(Canvas canvas) {
+	public void DrawCanvas1(Canvas canvas) {
 		// draw something
-		BackgroundColor = Color.WHITE;
+		if(BatteryLevel <= BatteryScale / 2) {
+			BackgroundColor = Color.rgb(0xff, (int)(0xff * (double)BatteryLevel * 2 / BatteryScale), 0);
+		} else {
+			BackgroundColor = Color.rgb((int)(0xff * (2 - (double)BatteryLevel * 2 / BatteryScale)), 0xff, 0);
+		}
 		super.DrawCanvas(canvas);
 		OverLayer(canvas);
 		KumamonCopyright(canvas);
 	}
-
-	public void ChangeImage2() {
-		Images = images;
-		Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
-		getForecast();
-	}
 	
-	public void DrawCanvas3(Canvas canvas) {
+	public void DrawCanvas2(Canvas canvas) {
 		// draw something
+		BackgroundColor = Color.BLACK;
 		canvas.drawColor(BackgroundColor);
-		ChangeImage();
 		if(position < 0) position = 0;
-		if(position > (width - displayWidth)) position = (width - displayWidth);
-		canvas.drawBitmap(Image, new Rect(position, 0, position + displayWidth, hight),
-				new Rect(0, 0, displayWidth, hight), null);
-	}
-
-	public void ChangeImage3() {
-		Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma6);
-		width = Image.getWidth();
-		hight = Image.getHeight();
-	}
-
-	public void ChangeImage4() {
-		Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma5);
-		width = Image.getWidth();
-		hight = Image.getHeight();
+		if(position > (width - WidthPixels)) position = (width - WidthPixels);
+		canvas.drawBitmap(Image, new Rect(position, 0, position + WidthPixels, hight),
+				new Rect(0, 0, WidthPixels, hight), null);
 	}
 
 	private void OverLayer(Canvas canvas) {
@@ -244,28 +215,27 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		if(sharedPreferences.getBoolean("date", false)) {
-			paint.setTextSize(18);
-			Date date = Calendar.getInstance().getTime();
-			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
-			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.JAPANESE);
-			canvas.drawText(sdf1.format(date), 340, 70, paint);
-			paint.setTextSize(50);
-			canvas.drawText(sdf2.format(date), 340, 115, paint);
-			int battery = (int)((double)BatteryLevel / BatteryScale * 100.0 + 0.5);
-			paint.setTextSize(18);
-			Resources resource = getResources();
-			canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 340, 140, paint);
-		}
-
 		if(sharedPreferences.getBoolean("forecast", false)) {
 			String today = sharedPreferences.getString(ForecastTask.KEY_TODAY, "");
 			String tomorrow = sharedPreferences.getString(ForecastTask.KEY_TOMORROW, "");
 			String day_after_tomorrow = sharedPreferences.getString(ForecastTask.KEY_DAY_AFTER_TOMORROW, "");
-			paint.setTextSize(24);
-			canvas.drawText(today, 10, 70, paint);
-			canvas.drawText(tomorrow, 10, 100, paint);
-			canvas.drawText(day_after_tomorrow, 10, 130, paint);
+			paint.setTextSize(8 * Scaled);
+			canvas.drawText(today, 3 * Scaled, 22 * Scaled, paint);
+			canvas.drawText(tomorrow, 3 * Scaled, 32 * Scaled, paint);
+			canvas.drawText(day_after_tomorrow, 3 * Scaled, 42 * Scaled, paint);
+		}
+		if(sharedPreferences.getBoolean("date", false)) {
+			paint.setTextSize(6 * Scaled);
+			Date date = Calendar.getInstance().getTime();
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
+			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.JAPANESE);
+			canvas.drawText(sdf1.format(date), 115 * Scaled, 22 * Scaled, paint);
+			paint.setTextSize(16 * Scaled);
+			canvas.drawText(sdf2.format(date), 115 * Scaled, 37 * Scaled, paint);
+			int battery = (int)((double)BatteryLevel / BatteryScale * 100.0 + 0.5);
+			paint.setTextSize(6 * Scaled);
+			Resources resource = getResources();
+			canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 117 * Scaled, 43 * Scaled, paint);
 		}
 	}
 
@@ -273,11 +243,9 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextSize(16 * displayWidth / 480);
+		paint.setTextSize(5 * Scaled);
 		Resources resource = getResources();
-		int x = 240 * displayWidth / 480;
-		int y = 640 * displayWidth / 480;
-		canvas.drawText(resource.getString(R.string.KumamonCopyright), x, y, paint);
+		canvas.drawText(resource.getString(R.string.KumamonCopyright), 80 * Scaled, 215 * Scaled, paint);
 	}
 
 	private void getForecast() {

@@ -32,7 +32,6 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 
 public class KumamonLockLiveWallPaper extends LiveWallPaper {
-	private int displayWidth;
 	private Random randam = new Random();
 	private boolean warking = false;
 	private boolean SingleTap = false;
@@ -41,11 +40,6 @@ public class KumamonLockLiveWallPaper extends LiveWallPaper {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// ウィンドウマネージャのインスタンス取得
-		WindowManager windowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
-		// ディスプレイのインスタンス生成
-		Display display = windowManager.getDefaultDisplay();
-		displayWidth = display.getWidth();
 		BackgroundColor = Color.WHITE;
 	}
 
@@ -98,32 +92,27 @@ public class KumamonLockLiveWallPaper extends LiveWallPaper {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		if(sharedPreferences.getBoolean("date", false)) {
-			paint.setTextSize(18);
-			Date date = Calendar.getInstance().getTime();
-			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
-			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.JAPANESE);
-			canvas.drawText(sdf1.format(date), 340, 70, paint);
-			paint.setTextSize(50);
-			canvas.drawText(sdf2.format(date), 340, 115, paint);
-			int battery = (int)((double)BatteryLevel / BatteryScale * 100.0 + 0.5);
-			paint.setTextSize(18);
-			Resources resource = getResources();
-			canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 340, 140, paint);
-		}
-
 		if(sharedPreferences.getBoolean("forecast", false)) {
 			String today = sharedPreferences.getString(ForecastTask.KEY_TODAY, "");
 			String tomorrow = sharedPreferences.getString(ForecastTask.KEY_TOMORROW, "");
 			String day_after_tomorrow = sharedPreferences.getString(ForecastTask.KEY_DAY_AFTER_TOMORROW, "");
-			paint.setTextSize(24);
-			if(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 18) {
-				canvas.drawText(tomorrow, 10, 70, paint);
-				canvas.drawText(day_after_tomorrow, 10, 100, paint);
-			} else {
-				canvas.drawText(today, 10, 70, paint);
-				canvas.drawText(tomorrow, 10, 100, paint);
-			}
+			paint.setTextSize(8 * Scaled);
+			canvas.drawText(today, 3 * Scaled, 22 * Scaled, paint);
+			canvas.drawText(tomorrow, 3 * Scaled, 32 * Scaled, paint);
+			canvas.drawText(day_after_tomorrow, 3 * Scaled, 42 * Scaled, paint);
+		}
+		if(sharedPreferences.getBoolean("date", false)) {
+			paint.setTextSize(6 * Scaled);
+			Date date = Calendar.getInstance().getTime();
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.JAPANESE);
+			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.JAPANESE);
+			canvas.drawText(sdf1.format(date), 115 * Scaled, 22 * Scaled, paint);
+			paint.setTextSize(16 * Scaled);
+			canvas.drawText(sdf2.format(date), 115 * Scaled, 37 * Scaled, paint);
+			int battery = (int)((double)BatteryLevel / BatteryScale * 100.0 + 0.5);
+			paint.setTextSize(6 * Scaled);
+			Resources resource = getResources();
+			canvas.drawText(resource.getString(R.string.battery)+ String.valueOf(battery) +"%", 117 * Scaled, 43 * Scaled, paint);
 		}
 	}
 
@@ -131,11 +120,9 @@ public class KumamonLockLiveWallPaper extends LiveWallPaper {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
-		paint.setTextSize(16 * displayWidth / 480);
+		paint.setTextSize(5 * Scaled);
 		Resources resource = getResources();
-		int x = 240 * displayWidth / 480;
-		int y = 600 * displayWidth / 480;
-		canvas.drawText(resource.getString(R.string.KumamonCopyright), x, y, paint);
+		canvas.drawText(resource.getString(R.string.KumamonCopyright), 80 * Scaled, 200 * Scaled, paint);
 	}
 
 	private void getForecast() {
