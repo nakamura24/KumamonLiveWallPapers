@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package jp.kumamonlivewallpapers;
+package jp.kumamon.livewallpapers;
 
 public final class R {
     public static final class array {

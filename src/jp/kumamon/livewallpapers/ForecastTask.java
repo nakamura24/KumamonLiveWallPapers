@@ -8,7 +8,7 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers;
+package jp.kumamon.livewallpapers;
 
 import java.io.InputStream;
 import java.util.*;

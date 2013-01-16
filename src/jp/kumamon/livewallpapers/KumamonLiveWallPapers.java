@@ -8,7 +8,7 @@
  * 		http://creativecommons.org/licenses/by-nc-sa/2.1/jp/legalcode
  */
 
-package jp.kumamonlivewallpapers;
+package jp.kumamon.livewallpapers;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
-import jp.kumamonlivewallpapers.ForecastTask;
-import jp.kumamonlivewallpapers.R;
+import jp.kumamon.livewallpapers.ForecastTask;
+import jp.kumamon.livewallpapers.R;
 import jp.template.LiveWallPaper;
 import android.content.SharedPreferences;
 import android.content.res.Resources;

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.kumamonlivewallpapers"
-    android:versionCode="26"
-    android:versionName="1.1.16" 
+    package="jp.kumamon.livewallpapers"
+    android:versionCode="27"
+    android:versionName="1.1.17" 
     android:installLocation="auto">
 
     <uses-sdk
