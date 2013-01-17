@@ -43,11 +43,18 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 	private int width;
 	private int hight;
 	private int position;
+	
+	public KumamonLiveWallPapers() {
+		Image = BitmapFactory.decodeResource(getResources(), R.drawable.image60);
+		//　ActionTimeTickを有効にする
+		ActionTimeTick = true;
+		//　ActionBatteryChangedを有効にする
+		ActionBatteryChanged = true;
+	}
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Image = BitmapFactory.decodeResource(getResources(), R.drawable.image60);
 	}
 
 	@Override

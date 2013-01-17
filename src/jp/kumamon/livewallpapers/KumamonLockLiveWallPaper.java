@@ -27,20 +27,25 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.view.Display;
 import android.view.MotionEvent;
-import android.view.WindowManager;
 
 public class KumamonLockLiveWallPaper extends LiveWallPaper {
 	private Random randam = new Random();
 	private boolean warking = false;
 	private boolean SingleTap = false;
 	private int mLocateId = 0;
+	
+	public KumamonLockLiveWallPaper() {
+		BackgroundColor = Color.WHITE;
+		//　ActionTimeTickを有効にする
+		ActionTimeTick = true;
+		//　ActionBatteryChangedを有効にする
+		ActionBatteryChanged = true;
+	}
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		BackgroundColor = Color.WHITE;
 	}
 
 	@Override
