@@ -20,6 +20,7 @@ import jp.kumamon.livewallpapers.ForecastTask;
 import jp.kumamon.livewallpapers.R;
 import jp.template.LiveWallPaper;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -55,6 +56,12 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		if(sharedPreferences.getString("select", "0").equals("0"))	{
+			Editor editor = sharedPreferences.edit();
+			editor.putString("select", "1");
+			editor.commit();
+		}
 	}
 
 	@Override
