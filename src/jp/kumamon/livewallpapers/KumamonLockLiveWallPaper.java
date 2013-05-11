@@ -38,9 +38,9 @@ public class KumamonLockLiveWallPaper extends LiveWallPaper {
 	public KumamonLockLiveWallPaper() {
 		BackgroundColor = Color.WHITE;
 		//　ActionTimeTickを有効にする
-		ActionTimeTick = true;
+		UseTimeTick = true;
 		//　ActionBatteryChangedを有効にする
-		ActionBatteryChanged = true;
+		UseBatteryChanged = true;
 	}
 
 	@Override
@@ -70,15 +70,15 @@ public class KumamonLockLiveWallPaper extends LiveWallPaper {
 	public void ChangeImage() {
 		if(SingleTap) {
 			int[] images = {R.drawable.lock2,R.drawable.lock3,R.drawable.lock4,R.drawable.lock5,};
-			Image = BitmapFactory.decodeResource(getResources(), images[randam.nextInt(images.length)]);
+			BitmapImage = BitmapFactory.decodeResource(getResources(), images[randam.nextInt(images.length)]);
 			DelayMillis = 3000;	// millisecond
 			SingleTap = false;
 		} else {
 			if(warking) {
-				Image = BitmapFactory.decodeResource(getResources(), R.drawable.lock0);
+				BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.lock0);
 				warking  = false;
 			} else {
-				Image = BitmapFactory.decodeResource(getResources(), R.drawable.lock1);
+				BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.lock1);
 				warking  = true;
 			}
 			DelayMillis = 1000;	// millisecond
