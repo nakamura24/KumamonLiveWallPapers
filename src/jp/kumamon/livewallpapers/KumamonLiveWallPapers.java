@@ -47,9 +47,9 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 	
 	public KumamonLiveWallPapers() {
 		//　ActionTimeTickを有効にする
-		ActionTimeTick = true;
+		UseTimeTick = true;
 		//　ActionBatteryChangedを有効にする
-		ActionBatteryChanged = true;
+		UseBatteryChanged = true;
 	}
 
 	@Override
@@ -83,22 +83,22 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 			getForecast();
 			break;
 		case 2:
-			Images = images;
-			Image = BitmapFactory.decodeResource(getResources(), Images[randam.nextInt(Images.length)]);
+			ImageResources = images;
+			BitmapImage = BitmapFactory.decodeResource(getResources(), ImageResources[randam.nextInt(ImageResources.length)]);
 			getForecast();
 			break;
 		case 3:
-			Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma6);
-			width = Image.getWidth();
-			hight = Image.getHeight();
+			BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.kuma6);
+			width = BitmapImage.getWidth();
+			hight = BitmapImage.getHeight();
 			break;
 		case 4:
-			Image = BitmapFactory.decodeResource(getResources(), R.drawable.kuma5);
-			width = Image.getWidth();
-			hight = Image.getHeight();
+			BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.kuma5);
+			width = BitmapImage.getWidth();
+			hight = BitmapImage.getHeight();
 			break;
 		case 5:
-			Images = sma;
+			ImageResources = sma;
 			super.ChangeImage();
 		}
 	}
@@ -153,14 +153,14 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 	
 	public void ChangeImage1() {
 		if (Offset == 0) {
-			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image0);
+			BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image0);
 		} else if (Offset == 1) {
-			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image1);
+			BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image1);
 		} else if (Offset == 2) {
 			if(BatteryLevel < BatteryScale / 5) {
-				Image = BitmapFactory.decodeResource(getResources(), R.drawable.image20);
+				BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image20);
 			} else if(BatteryLevel < BatteryScale * 2 / 5) {
-				Image = BitmapFactory.decodeResource(getResources(), R.drawable.image40);
+				BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image40);
 			} else {
 				Calendar calendar = Calendar.getInstance();
 				int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -169,35 +169,35 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 				case 7:
 				case 12:
 				case 18:
-					Image = BitmapFactory.decodeResource(getResources(), R.drawable.image10);
+					BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image10);
 					break;
 				case 20:
-					Image = BitmapFactory.decodeResource(getResources(), R.drawable.image11);
+					BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image11);
 					break;
 				case 10:
-					Image = BitmapFactory.decodeResource(getResources(), R.drawable.image12);
+					BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image12);
 					break;
 				case 14:
-					Image = BitmapFactory.decodeResource(getResources(), R.drawable.image13);
+					BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image13);
 					break;
 				case 16:
-					Image = BitmapFactory.decodeResource(getResources(), R.drawable.image14);
+					BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image14);
 					break;
 				default:
 					if(BatteryLevel < BatteryScale * 3 / 5) {
-						Image = BitmapFactory.decodeResource(getResources(), R.drawable.image60);
+						BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image60);
 					} else if(BatteryLevel < BatteryScale * 4 / 5) {
-						Image = BitmapFactory.decodeResource(getResources(), R.drawable.image80);
+						BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image80);
 					} else {
-						Image = BitmapFactory.decodeResource(getResources(), R.drawable.image100);
+						BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image100);
 					}
 					break;
 				}
 			}
 		} else if (Offset == 3) {
-			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image3);
+			BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image3);
 		} else if (Offset == 4) {
-			Image = BitmapFactory.decodeResource(getResources(), R.drawable.image4);
+			BitmapImage = BitmapFactory.decodeResource(getResources(), R.drawable.image4);
 		}
 	}
 	
@@ -219,7 +219,7 @@ public class KumamonLiveWallPapers extends LiveWallPaper {
 		canvas.drawColor(BackgroundColor);
 		if(position < 0) position = 0;
 		if(position > (width - WidthPixels)) position = (width - WidthPixels);
-		canvas.drawBitmap(Image, new Rect(position, 0, position + WidthPixels, hight),
+		canvas.drawBitmap(BitmapImage, new Rect(position, 0, position + WidthPixels, hight),
 				new Rect(0, 0, WidthPixels, hight), null);
 	}
 
